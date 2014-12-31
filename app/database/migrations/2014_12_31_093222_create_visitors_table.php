@@ -15,9 +15,11 @@ class CreateVisitorsTable extends Migration {
 		Schema::create('visitors', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('first_name');
-			$table->string('last_name');
+			$table->string('name');
+			$table->string('submitted_id');
 			$table->string('phone');
+			$table->string('email');
+			$table->string('from');
 			$table->softDeletes();
 			$table->timestamps();
 		});
