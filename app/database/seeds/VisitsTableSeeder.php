@@ -15,6 +15,7 @@ class VisitsTableSeeder extends Seeder {
           ]),
           'to_meet' => $faker->name,
           'issued_id' => $faker->numberBetween(1, 30),
+          'updated_at' => NULL,
         ]);
       }
     }

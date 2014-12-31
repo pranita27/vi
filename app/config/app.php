@@ -190,5 +190,6 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 
 	),
+	'visitor_img_path' => public_path() . '/img/visitor-img',
 
 );

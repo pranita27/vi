@@ -15,6 +15,7 @@ class VisitorsTableSeeder extends Seeder {
         'phone' => $faker->phoneNumber,
         'email' => $faker->email,
         'from' => $faker->country,
+        'picture_file_path' => 'visitor.jpg',
       ]);
     }
   }

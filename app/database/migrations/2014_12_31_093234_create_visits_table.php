@@ -17,10 +17,10 @@ class CreateVisitsTable extends Migration {
 			$table->increments('id');
 			$table->integer('visitor_id')->unsigned();
 			$table->foreign('visitor_id')->references('id')->on('visitors');
-			$table->string('purpose');
-			$table->string('to_meet');
-			$table->string('issued_id');
-			$table->timestamps();
+			$table->string('purpose', 100);
+			$table->string('to_meet', 100);
+			$table->string('issued_id', 10);
+			$table->nullableTimestamps();
 		});
 	}
 
