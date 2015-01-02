@@ -1,47 +1,43 @@
-angular.module('vapp', ['webcam'])
+angular.module('vapp', [])
   .controller('CamController', function($scope){
-    $scope.video = false;
-    $scope.camStatus = 'not-started';
+    $scope.camStatus = 'before-init';
+    $scope.webcam = new SayCheese("#webcam");
 
-    $scope.onError = function(err){
+    $scope.webcam.on('error', function(err){
       $scope.$apply(function(){
         $scope.camStatus = 'failed';
       });
-    };
+    });
 
-    $scope.onSuccess = function(){
+    $scope.webcam.on('start', function(err){
+      $scope.webcam.video.height = 240;
       $scope.$apply(function(){
         $scope.camStatus = 'started';
       });
+    });
 
-    };
-
-    $scope.onStream = function(stream) {
-      //
-    };
+    $scope.webcam.on('snapshot', function(snapshot){
+      var img = angular.element(document.querySelector('#visitor-image'));
+      img.prop('src', snapshot.toDataURL('image/jpeg', 0.5));
+      img.removeClass('hidden').addClass('show');
+      $scope.webcam.snapshots = [];
+    });
 
     $scope.stopCam = function() {
+      $scope.webcam.stop();
+      angular.element($scope.webcam.video).remove();
       $scope.camStatus = 'stopped';
-      $scope.$broadcast('STOP_WEBCAM');
-    }
+    };
 
     $scope.startCam = function() {
-      $scope.camStatus = 'not-started';
-      $scope.$broadcast('START_WEBCAM');
-    }
+      $scope.camStatus = 'waiting';
+      $scope.webcam.start();
+    };
 
-    $scope.takeSnap = function() {
-      if ($scope.video) {
-        var snapshot = document.querySelector('#snap');
-        var ctx = snapshot.getContext('2d');
-        snapshot.width = $scope.video.width;
-        snapshot.height = $scope.video.height;
-        ctx.drawImage($scope.video, 0, 0, $scope.video.width, $scope.video.height);
-        angular.element(snapshot).removeClass('hidden').addClass('show');
-        // $(snapshot).addClass('show');
-        ctx = null;
-      }
-    }
+    $scope.takeSnap = function(snap) {
+      $scope.webcam.takeSnapshot(320, 240);
+    };
+
   })
   .controller('VisitorController', function($scope){
     $scope.proofOptions = [
