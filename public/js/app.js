@@ -1,4 +1,4 @@
-angular.module('vapp', [])
+angular.module('vapp', ['restangular'])
   .controller('CamController', function ($scope) {
     $scope.camStatus = 'before-init';
     $scope.webcam = new SayCheese("#webcam");
@@ -39,7 +39,7 @@ angular.module('vapp', [])
     };
 
   })
-  .controller('VisitorController', function ($scope) {
+  .controller('VisitorController', function ($scope, Restangular) {
     $scope.proofOptions = [
       {name: "Aadhar card", value: "Aadhar card"},
       {name: "Company ID", value: "Company ID"},
@@ -55,6 +55,7 @@ angular.module('vapp', [])
       {name: "Interview", value: "Interview"},
       {name: "Vendor", value: "Vendor"}
     ];
+
 
   })
   .controller('VisitController', function ($scope) {
