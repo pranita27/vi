@@ -1,0 +1,60 @@
+body {
+  background-color: #f8f8f8;
+}
+
+.container {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-fetch {
+  font-size: 2em;
+  background-color: #008fd5;
+}
+.btn-fetch:hover {
+  background-color: yellow;
+}
+
+.messages {
+  list-style: none;
+  background-color: gray;
+}
+
+.messages .error {
+  color: #c03030;
+}
+
+.messages .info {
+  color: blue;
+}
+
+.tiles,
+.messages {
+  width: 80%;
+  margin: auto;
+}
+
+.tile {
+  margin: 20px;
+  border: 5px solid gray;
+  border-radius: 5px;
+  float: left;
+  background-color: gray;
+}
+
+.tile a {
+  text-decoration: none;
+}
+
+.tile a img {
+  opacity: 0.9;
+}
+
+.tile a img:hover {
+  opacity: 1;
+}
+
+.tile a .title {
+  color: white;
+  display: block;
+}
