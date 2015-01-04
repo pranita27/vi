@@ -39,7 +39,8 @@ angular.module('vapp', ['ngResource'])
     };
 
   })
-  .controller('VisitorController', function ($scope) {
+  .controller('VisitorController', function ($scope, Visitor) {
+
     $scope.proofOptions = [
       {name: "Aadhar card", value: "Aadhar card"},
       {name: "Company ID", value: "Company ID"},
@@ -56,8 +57,28 @@ angular.module('vapp', ['ngResource'])
       {name: "Vendor", value: "Vendor"}
     ];
 
+    $scope.save = function(v) {
+      var img = angular.element(document.querySelector('#visitor-image'));
+      v.img = img.prop('src');
+      Visitor.save(v);
+      console.log('hi');
+    };
 
   })
   .controller('VisitController', function ($scope) {
     //
+  })
+  .factory('Visitor', function ($resource) {
+    return $resource('/visitors/:id', {}, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  })
+  .factory('Visit', function ($resource) {
+    return $resource('/visits/:id', {}, {
+      update: {
+        method: 'PUT'
+      }
+    });
   });

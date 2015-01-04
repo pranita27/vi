@@ -37,6 +37,15 @@ class VisitorsController extends \BaseController {
 	 */
 	public function store()
 	{
+		if (Input::has('img')) {
+			list($type, $data) = explode(';', Input::get('img'));
+			list(, $data)      = explode(',', $data);
+			$data = str_replace(' ', '+', $data);
+			$data = base64_decode($data);
+			file_put_contents(Config::get('app.visitor_img_path') . '/' . uniqid() . '.jpeg', $data);
+		}
+		;exit;
+
 		//
 		$v = Validator::make(Input::all(), self::getValidationRules());
 		print_r(Input::file('picture'));
@@ -81,7 +90,7 @@ class VisitorsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return Visitor::find($id);
 	}
 
 
