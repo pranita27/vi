@@ -14,7 +14,8 @@ class VisitorsController extends \BaseController {
 		print_r(self::getValidationRules(['name']));
 		print_r(self::getValidationRules(['test']));
 		*/
-		print_r(Config::get('app.visitor_img_path'));
+		// print_r(Config::get('app.visitor_img_path'));
+		return $this->getByDate('2015-01-01', '2015-01-02');
 	}
 
 
@@ -139,6 +140,25 @@ class VisitorsController extends \BaseController {
 			'picture' => 'required|mimes:jpeg,png|between:4,400',
 		];
 		return empty($selected) ? $rules : array_only($rules, $selected);
+	}
+
+	public function getByDate($fromdate, $todate = NULL) {
+		if($fromdate !== '' ){
+			if($todate === NULL){
+				$todate = $fromdate;
+			}
+			$from = date('Y-m-d', strtotime($fromdate));
+	  		$to = date('Y-m-d', strtotime($todate));
+			$visitors = DB::table('visitors')
+	            ->where('created_at', '>=', $from.' 00:00:00')
+	            ->where('created_at', '<=', $to.' 23:59:59')
+	            ->get();
+			return $visitors;
+		}
+	}
+
+	public function getByPhone($phone) {
+		return Visitor::where('phone', 'LIKE', '%'.$phone.'%')->get();
 	}
 
 }
